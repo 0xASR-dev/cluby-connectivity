@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -12,26 +11,25 @@ const MainLayout: React.FC = () => {
   // Show loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background">
-        <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
-        <p className="text-muted-foreground">Loading your dashboard...</p>
+      <div className="flex min-h-[100dvh] flex-col items-center justify-center gap-4 bg-background px-6 text-center" role="status" aria-live="polite">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" aria-hidden="true" />
+        <p className="text-sm font-medium text-muted-foreground">Loading your dashboard...</p>
       </div>
     );
   }
 
-  // Redirect to login if not authenticated
+  // Redirect to auth if not authenticated
   if (!user) {
-    console.log("User not authenticated, redirecting to auth page");
     return <Navigate to="/auth" replace />;
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-[100dvh] flex-col bg-background text-foreground">
       <Navbar />
-      <div className="flex flex-1">
+      <div className="flex min-h-0 flex-1">
         <Sidebar />
-        <main className="flex-1 overflow-auto">
-          <div className="cluby-container">
+        <main className="min-w-0 flex-1 overflow-x-hidden">
+          <div className="cluby-container py-6 md:py-9">
             <Outlet />
           </div>
         </main>

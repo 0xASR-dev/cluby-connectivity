@@ -1,0 +1,206 @@
+Cluby Documentation
+Introduction
+Problem Statement: Freshers often find it challenging to connect with clubs that match their interests due to limited social circles. As a result, they miss out on opportunities to showcase their skills and participate in campus events.
+Solution Overview: "Cluby" aims to eliminate these barriers by creating a centralized platform where students can easily explore, apply for, and engage with clubs and college events.
+Features of Cluby
+Clublist: Displays active clubs on campus, providing details such as club objectives, events, and activities they organize.
+Recruit: Lists available positions within college clubs and departments, enabling students to apply for roles within these organizations.
+Community: A social space where clubs can post announcements, events, and activities, fostering engagement and interaction.
+Workflow Description
+Club Registration: Club Coordinators apply to list their clubs on Cluby. The Admin reviews the club details and, upon verification, approves or rejects the club.
+
+Event & Vacancy Posting: Once approved, Club Representatives can post about upcoming events and vacancies in the Community and Recruit sections, making it visible to students.
+
+Student Engagement: Students can view the list of clubs, follow or join clubs, and apply for posted vacancies. Club Coordinators have the authority to accept or reject student requests.
+Important Links
+Notion PRD
+Eraser.io
+Purpose of Cluby
+The primary goal of Cluby is to:
+Provide students with easy access to college clubs and events.
+Simplify the club management process for club representatives.
+Enable admins to monitor and control platform activities.
+Promote collaboration, communication, and engagement within the student body.
+Target Users
+Students: Users seeking to explore clubs, events, and opportunities on campus.
+Club Representatives (CR): Responsible for managing club profiles, posting events, and overseeing recruitment processes.
+Admins: Administrators who manage the overall platform, approve club registrations, and monitor activities.
+
+
+
+Cluby Pages
+ User Authentication & Registration Page
+Role based Login System
+          
+
+Club List Page
+Allow users to view, explore through Different clubs.
+Can take action such as Follow , Join & Access detail.
+Filtering and search Functionality
+
+
+5. Club Profile Page
+Purpose: A dedicated page for each club, showcasing its details, events, and recruitment information.
+Key Elements:
+Club description, mission, and members.
+Recent posts about events or recruitment.
+Option for students to request to join or follow the club.
+Social media or external links related to the club.
+6. Recruitment Page
+Purpose: Display a list of available positions in clubs or departments that students can apply for.
+Key Elements:
+List of current vacancies.
+Details about each post, such as job role, requirements, and application deadline.
+"Apply" button for students to submit applications.
+Filtering options (by clubs or departments).
+Admin Dashboard
+Purpose: Provide administrative control for managing clubs, monitoring activities, and addressing fraudulent behavior.
+Key Elements:
+
+
+Overview of all clubs and activities.
+Tools for blacklisting users or clubs involved in fraudulent activities.
+Data and analytics on platform usage.
+7. Community Page
+Purpose: A shared space for clubs to post general announcements, events, and engage with students.
+Key Elements:
+Posts from various clubs about events, activities, or announcements.
+Comment sections for students to interact with posts.
+Search bar and filters (e.g., by event type or date).
+8. Student Dashboard
+Purpose: A personal dashboard for students to manage club applications, events, and interactions.
+Key Elements:
+List of joined clubs.
+Status of club membership requests (pending/approved/rejected).
+Upcoming events from joined or followed clubs.
+Notifications about new events, posts, or recruitment updates.
+
+9. Club Representative Dashboard
+Purpose: Provide tools for club representatives to manage club posts, events, and recruitments.
+Key Elements:
+Create new posts for events or recruitment.
+Manage club profile and edit details.
+View and approve/reject student requests to join.
+
+
+Purpose of Cluby
+The primary goal of Cluby is to:
+Provide students with easy access to college clubs and events.
+Simplify the club management process for club representatives.
+Enable admins to monitor and control platform activities.
+Promote collaboration, communication, and engagement within the student body.
+Target Users
+Students: Users seeking to explore clubs, events, and opportunities on campus.
+Club Representatives (CR): Responsible for managing club profiles, posting events, and overseeing recruitment processes.
+Admins: Administrators who manage the overall platform, approve club registrations, and monitor activities.
+
+2. Platform Overview
+Key Features
+Club Registration & Management: Allows clubs to register, manage profiles, and post vacancies or events.
+Event Management: A centralized system to view and RSVP to college events.
+Recruitment Opportunities: A page dedicated to internships, job openings, and other recruitment opportunities within clubs.
+Community Page: A space for clubs to post announcements, discussions, and updates.
+User Dashboards: Custom dashboards for students, club representatives, and admins to track activity and manage tasks.
+Notifications & Alerts: Real-time updates about club activities, event reminders, and recruitment deadlines.
+
+Core Modules
+User Authentication & Roles: Allows users to sign in with role-based access (Students, CRs, Admins).
+Club Management System: Provides tools for managing club profiles and posts.
+Event Calendar & RSVP: Allows students to register for events and track deadlines.
+Recruitment Management: A page dedicated to showcasing available club positions
+Community Posts: Enables clubs to share announcements and news with students.
+
+
+3. User Roles and Permissions
+Admin
+Permissions:
+Approve or reject club registrations.
+Modify club details and deactivate fraudulent clubs.
+Monitor student activity and manage reported content.
+Oversee recruitment opportunities.
+Approve or reject community posts and events.
+Responsibilities: Manage platform, monitor activities, and ensure the smooth operation of the platform.
+Club Representative (CR)
+Permissions:
+Create, edit, and manage club profiles.
+Post and manage vacancies, events, and recruitment opportunities.
+Engage with students through community posts.
+Responsibilities: Represent a club on the platform, manage club activities, and recruit members.
+Student
+Permissions:
+Explore and join clubs.
+RSVP to events and apply for recruitment opportunities.
+Participate in community discussions and like/comment on posts.
+Responsibilities: Engage with the platform, join clubs, participate in events, and apply for roles.
+
+4. Feature Breakdown
+Club Registration & Management
+For Admin: Admin can create a club account by filling out details provided by the club representative and approve new clubs.
+For Club Representatives: Once logged in, CRs can fill out a form to complete their club profile (including name, bio, events, social media, and team members).
+For Students: Students can view the list of clubs, explore their details, and follow them.
+Event Management
+For CRs: CRs can post events for their clubs, manage event details, and track RSVPs from students.
+For Students: Students can view upcoming events, RSVP, and mark their attendance.
+Recruitment Opportunities
+For CRs: CRs can post vacancies for club positions or internships.
+For Students: Students can view available vacancies, apply for positions, and track their applications.
+Community Page
+For CRs: CRs can post announcements, news, and engage with students via the community page.
+For Students: Students can view posts, like and comment on them, and share on social media.
+User Dashboards
+For Admins: Admins can monitor user activity, approve/reject clubs, and track platform engagement.
+For CRs: CRs can track member applications, post vacancies, and manage events.
+For Students: Students can track their joined clubs, RSVP-ed events, and application statuses.
+Notifications and Alerts
+Automated reminders for students about event dates, recruitment deadlines, and club activities.
+
+5. Workflow
+Club Creation & Management
+Admin receives a request for a new club registration.
+Admin creates a club profile after receiving the details from the club representative.
+Club representative logs in and completes the club profile.
+Club Representative Workflow
+CR logs in, manages club profiles, posts events, and recruitment opportunities.
+CR interacts with students through the community page.
+CR monitors event participation and manages applications.
+Student Engagement
+Students sign up and explore clubs, events, and recruitment opportunities.
+Students RSVP for events and apply for roles.
+Students interact with posts on the community page.
+Admin Management
+Admin monitors platform usage, approves clubs, and handles reported content.
+Admin manages recruitment transparency and event approvals.
+Admin sends global announcements and updates.
+
+6. Admin Features
+Club Management
+Approve or reject clubs.
+Edit club details, deactivate fraudulent clubs.
+User Management
+Approve, suspend, or remove CRs and students.
+Monitor activities and manage inappropriate behavior.
+
+Post & Event Moderation
+Approve or reject CR community posts.
+Manage reported posts and content.
+Recruitment Oversight
+Monitor and manage recruitment listings.
+Ensure fair and transparent hiring processes.
+Analytics & Reports
+Track engagement (popular clubs, events).
+Monitor recruitment trends and participation.
+
+
+
+
+
+
+Data Model
+
+Different Forms
+Student onboarding form : details of student like branch, year etc.
+Club onboarding form: club details.
+Post form: 
+Recruitment Form
+Application Form
+

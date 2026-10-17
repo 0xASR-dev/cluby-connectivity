@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f7f6ef"/>
+  <circle cx="1012" cy="280" r="255" fill="#e5ebdd"/>
+  <circle cx="1092" cy="123" r="126" fill="#d4dfca"/>
+  <path d="M821 462c86-66 159-99 249-99 36 0 71 6 107 19v248H821Z" fill="#e9d777"/>
+  <path d="M858 473a160 160 0 1 1 0-196" fill="none" stroke="#245b46" stroke-linecap="round" stroke-width="28"/>
+  <circle cx="866" cy="375" r="15" fill="#245b46"/>
+  <path d="M74 124h78" stroke="#245b46" stroke-linecap="round" stroke-width="8"/>
+  <text x="74" y="292" fill="#18372b" font-family="Instrument Sans, ui-sans-serif, sans-serif" font-size="138" font-weight="700" letter-spacing="-7">Cluby</text>
+  <text x="82" y="376" fill="#245b46" font-family="Instrument Sans, ui-sans-serif, sans-serif" font-size="34" font-weight="500" letter-spacing="1">Campus, connected.</text>
+  <text x="82" y="494" fill="#52675c" font-family="Instrument Sans, ui-sans-serif, sans-serif" font-size="22" font-weight="400">Find clubs. Discover events. Connect on campus.</text>
+</svg>

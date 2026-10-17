@@ -37,16 +37,16 @@ const ApplicationForm = ({ position }: ApplicationFormProps) => {
   };
   
   return (
-    <Card className="max-w-2xl mx-auto">
-      <CardHeader>
+    <Card className="mx-auto max-w-2xl overflow-hidden rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+      <CardHeader className="border-b border-[#e9e4d9] bg-[#f0ede4] dark:border-[#34443a] dark:bg-[#223128]">
         <CardTitle>Apply for {position.title}</CardTitle>
         <CardDescription>{position.club}</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-5 p-5 sm:p-7">
           <div className="space-y-2">
             <Label>Position Details</Label>
-            <div className="rounded-md bg-gray-50 p-4">
+            <div className="rounded-xl border border-[#e9e4d9] bg-[#f6f3ec] p-4 dark:border-[#34443a] dark:bg-[#223128]">
               <h3 className="font-medium">{position.title}</h3>
               <p className="text-sm mt-1">{position.description}</p>
               <div className="mt-2">
@@ -117,7 +117,7 @@ const ApplicationForm = ({ position }: ApplicationFormProps) => {
           </div>
         </CardContent>
         
-        <CardFooter className="flex justify-between">
+        <CardFooter className="justify-between border-t border-[#e9e4d9] px-5 pt-5 dark:border-[#34443a] sm:px-7">
           <Button type="button" variant="outline" onClick={() => navigate(-1)}>
             Cancel
           </Button>

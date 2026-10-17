@@ -1,14 +1,16 @@
-
 import { MongoClient } from 'mongodb';
 import { DB_CONFIG } from '../env';
 
 // Check browser environment
 const isBrowser = typeof window !== 'undefined';
 
+// Import Vite environment variables
+const env = import.meta.env;
+
 // MongoDB connection string from environment variables
 const MONGODB_URI = isBrowser ? 
   '' : // Empty string in browser
-  (process.env.MONGODB_URI || DB_CONFIG.uri);
+  (env.VITE_MONGODB_URI || DB_CONFIG.uri);
 
 if (!isBrowser && !MONGODB_URI) {
   console.error('Missing MongoDB connection string');

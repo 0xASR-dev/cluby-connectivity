@@ -113,36 +113,36 @@ const CommunityManagement = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-[50vh]">
+      <div className="flex h-[50vh] items-center justify-center text-[#344b38] dark:text-[#dce8dd]">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-[#1d2c24] dark:text-[#f5f2e9]">
       <div>
-        <h1 className="text-3xl font-bold">Community Management</h1>
-        <p className="text-muted-foreground">Review and moderate posts in the community</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Community Management</h1>
+        <p className="mt-2 text-[#68736a] dark:text-[#b7c3ba]">Review and moderate posts in the community</p>
       </div>
       
       <Tabs defaultValue="all">
-        <TabsList>
+        <TabsList className="h-auto flex-wrap rounded-xl bg-[#ebe7dd] p-1 dark:bg-[#223128]">
           <TabsTrigger value="all">All Posts</TabsTrigger>
           <TabsTrigger value="flagged">Flagged Posts</TabsTrigger>
           <TabsTrigger value="reported">Reported</TabsTrigger>
         </TabsList>
         
         <TabsContent value="all" className="space-y-6">
-          <Card>
-            <CardHeader>
+          <Card className="overflow-hidden rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+            <CardHeader className="border-b border-[#e9e4d9] dark:border-[#34443a]">
               <CardTitle>All Posts</CardTitle>
               <CardDescription>
                 View and manage all posts in the community
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <Table>
+            <CardContent className="overflow-x-auto p-4 sm:p-6">
+              <Table className="min-w-[720px]">
                 <TableCaption>List of all posts in the system</TableCaption>
                 <TableHeader>
                   <TableRow>
@@ -211,7 +211,7 @@ const CommunityManagement = () => {
                                         ? 'destructive' 
                                         : 'outline'
                                   }
-                                  className={post.ui_status === 'approved' ? "bg-green-600 hover:bg-green-700" : ""}
+                                  className={post.ui_status === 'approved' ? "bg-[#344b38] text-white hover:bg-[#26382d]" : ""}
                                 >
                                   {post.ui_status.charAt(0).toUpperCase() + post.ui_status.slice(1)}
                                 </Badge>
@@ -221,7 +221,7 @@ const CommunityManagement = () => {
                                     variant="outline" 
                                     size="sm"
                                     onClick={() => updatePostMutation.mutate({ id: post.id, ui_status: 'approved' })}
-                                    className="h-8 text-green-600 border-green-600 hover:bg-green-50"
+                                    className="h-8 border-[#8da18e] text-[#344b38] hover:bg-[#edf2e9] dark:border-[#66806c] dark:text-[#dce8dd] dark:hover:bg-[#26382d]"
                                   >
                                     <Check className="h-4 w-4 mr-1" /> Approve
                                   </Button>
@@ -229,7 +229,7 @@ const CommunityManagement = () => {
                                     variant="outline" 
                                     size="sm" 
                                     onClick={() => deletePostMutation.mutate(post.id)}
-                                    className="h-8 text-red-600 border-red-600 hover:bg-red-50"
+                                    className="h-8 border-[#d9a28e] text-[#9b4d32] hover:bg-[#fbefe9] dark:border-[#9b614e] dark:text-[#f2c8b7] dark:hover:bg-[#392b25]"
                                   >
                                     <X className="h-4 w-4 mr-1" /> Delete
                                   </Button>
@@ -240,9 +240,9 @@ const CommunityManagement = () => {
                         </TableRow>
                         
                         {expandedPosts[post.id] && (
-                          <TableRow className="bg-gray-50 dark:bg-gray-800">
+                          <TableRow className="bg-[#f6f3ec] dark:bg-[#223128]">
                             <TableCell colSpan={5}>
-                              <div className="space-y-4 p-4">
+                              <div className="space-y-4 p-4 text-[#344239] dark:text-[#e0e8e1]">
                                 {post.image_url && (
                                   <div>
                                     <img 
@@ -286,7 +286,7 @@ const CommunityManagement = () => {
               <CardDescription>Posts that have been flagged for review</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+              <div className="flex flex-col items-center justify-center py-12 text-[#68736a] dark:text-[#b7c3ba]">
                 <AlertTriangle className="h-12 w-12 mb-2" />
                 <h3 className="text-lg font-medium">No flagged posts</h3>
                 <p>There are no posts that have been flagged for review.</p>
@@ -302,7 +302,7 @@ const CommunityManagement = () => {
               <CardDescription>Posts that have been reported by users</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+              <div className="flex flex-col items-center justify-center py-12 text-[#68736a] dark:text-[#b7c3ba]">
                 <AlertTriangle className="h-12 w-12 mb-2" />
                 <h3 className="text-lg font-medium">No reported posts</h3>
                 <p>There are no posts that have been reported by users.</p>

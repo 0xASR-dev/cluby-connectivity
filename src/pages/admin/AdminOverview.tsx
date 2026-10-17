@@ -18,10 +18,10 @@ import {
 const AdminOverview = () => {
   // Mock data for dashboard stats
   const stats = [
-    { title: 'Total Users', value: '1,245', icon: Users, color: 'bg-blue-100 text-blue-600' },
-    { title: 'Active Clubs', value: '32', icon: BookOpen, color: 'bg-green-100 text-green-600' },
-    { title: 'Events This Month', value: '18', icon: Calendar, color: 'bg-purple-100 text-purple-600' },
-    { title: 'New Applications', value: '54', icon: UserCheck, color: 'bg-amber-100 text-amber-600' },
+    { title: 'Total Users', value: '1,245', icon: Users },
+    { title: 'Active Clubs', value: '32', icon: BookOpen },
+    { title: 'Events This Month', value: '18', icon: Calendar },
+    { title: 'New Applications', value: '54', icon: UserCheck },
   ];
   
   // Mock data for activity chart
@@ -44,22 +44,22 @@ const AdminOverview = () => {
   ];
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-[#1d2c24] dark:text-[#f5f2e9]">
       <div>
-        <h1 className="text-3xl font-bold">Platform Overview</h1>
-        <p className="text-muted-foreground">Monitor platform activity and statistics</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Platform Overview</h1>
+        <p className="mt-2 text-[#68736a] dark:text-[#b7c3ba]">Monitor platform activity and statistics</p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat, i) => (
-          <Card key={i}>
+          <Card key={i} className="rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
                   <p className="text-3xl font-bold">{stat.value}</p>
                 </div>
-                <div className={`p-2 rounded-full ${stat.color}`}>
+                <div className="rounded-xl bg-[#e5ecdf] p-3 text-[#344b38] dark:bg-[#34443a] dark:text-[#dce8dd]">
                   <stat.icon size={24} />
                 </div>
               </div>
@@ -68,8 +68,8 @@ const AdminOverview = () => {
         ))}
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="col-span-1">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <Card className="col-span-1 rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Platform Activity</CardTitle>
@@ -81,21 +81,21 @@ const AdminOverview = () => {
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={activityData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
+                  <CartesianGrid stroke="#e9e4d9" strokeDasharray="3 3" />
+                  <XAxis dataKey="name" stroke="#7d877f" />
+                  <YAxis stroke="#7d877f" />
                   <Tooltip />
                   <Legend />
-                  <Line type="monotone" dataKey="users" stroke="#3b82f6" activeDot={{ r: 8 }} />
-                  <Line type="monotone" dataKey="events" stroke="#10b981" />
-                  <Line type="monotone" dataKey="applications" stroke="#f59e0b" />
+                  <Line type="monotone" dataKey="users" stroke="#344b38" activeDot={{ r: 8 }} />
+                  <Line type="monotone" dataKey="events" stroke="#c96343" />
+                  <Line type="monotone" dataKey="applications" stroke="#b18b51" />
                 </LineChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
         
-        <Card className="col-span-1">
+        <Card className="col-span-1 rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Club Distribution</CardTitle>
@@ -107,11 +107,11 @@ const AdminOverview = () => {
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={clubData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
+                  <CartesianGrid stroke="#e9e4d9" strokeDasharray="3 3" />
+                  <XAxis dataKey="name" stroke="#7d877f" />
+                  <YAxis stroke="#7d877f" />
                   <Tooltip />
-                  <Bar dataKey="value" fill="#8884d8" />
+                  <Bar dataKey="value" fill="#66806c" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

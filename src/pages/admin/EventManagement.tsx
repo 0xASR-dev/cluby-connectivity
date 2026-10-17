@@ -1,10 +1,8 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/components/ui/use-toast';
 import { 
   Check, 
@@ -63,49 +61,33 @@ interface Event {
 const EventManagement = () => {
   const queryClient = useQueryClient();
   const [expandedEvents, setExpandedEvents] = useState<Record<string, boolean>>({});
+  const [events, setEvents] = useState<Event[]>([]);
   
   // Fetch events
-  const { data: events, isLoading } = useQuery({
-    queryKey: ['admin-events'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('events')
-        .select(`
-          *,
-          club:club_id(*)
-        `)
-        .order('created_at', { ascending: false });
-        
-      if (error) throw error;
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch('/api/events');
+      const data = await response.json();
+      setEvents(data);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  };
 
-      // For each event, fetch the creator's profile separately
-      const eventsWithProfiles = await Promise.all(data.map(async (event) => {
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('full_name, avatar_url')
-          .eq('id', event.created_by)
-          .single();
-          
-        return {
-          ...event,
-          profile: profileError ? null : profileData
-        };
-      }));
-
-      return eventsWithProfiles as Event[];
-    },
-  });
+  const fetchUserProfile = async (userId) => {
+    try {
+      const response = await fetch(`/api/users/${userId}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      return null;
+    }
+  };
 
   // Mutation for approving/rejecting events (simulated for UI)
   const updateEventMutation = useMutation({
     mutationFn: async ({ id, ui_status }: { id: string; ui_status: 'approved' | 'rejected' }) => {
-      // In a real application with a status column:
-      // const { error } = await supabase
-      //   .from('events')
-      //   .update({ status: status })
-      //   .eq('id', id);
-      // if (error) throw error;
-      
       // Simulate for UI only
       return { id, ui_status };
     },
@@ -135,11 +117,10 @@ const EventManagement = () => {
   // Delete event mutation
   const deleteEventMutation = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase
-        .from('events')
-        .delete()
-        .eq('id', id);
-        
+      const { error } = await fetch(`/api/events/${id}`, {
+        method: 'DELETE'
+      });
+
       if (error) throw error;
       return id;
     },
@@ -169,38 +150,38 @@ const EventManagement = () => {
     }));
   };
 
-  if (isLoading) {
+  if (events.length === 0) {
     return (
-      <div className="flex items-center justify-center h-[50vh]">
+      <div className="flex h-[50vh] items-center justify-center text-[#344b38] dark:text-[#dce8dd]">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-[#1d2c24] dark:text-[#f5f2e9]">
       <div>
-        <h1 className="text-3xl font-bold">Event Management</h1>
-        <p className="text-muted-foreground">Review and moderate events</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Event Management</h1>
+        <p className="mt-2 text-[#68736a] dark:text-[#b7c3ba]">Review and moderate events</p>
       </div>
       
       <Tabs defaultValue="all">
-        <TabsList>
+        <TabsList className="h-auto flex-wrap rounded-xl bg-[#ebe7dd] p-1 dark:bg-[#223128]">
           <TabsTrigger value="all">All Events</TabsTrigger>
           <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
           <TabsTrigger value="past">Past Events</TabsTrigger>
         </TabsList>
         
         <TabsContent value="all" className="space-y-6">
-          <Card>
-            <CardHeader>
+          <Card className="overflow-hidden rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+          <CardHeader className="border-b border-[#e9e4d9] dark:border-[#34443a]">
               <CardTitle>All Events</CardTitle>
               <CardDescription>
                 View and manage all events in the system
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <Table>
+            <CardContent className="overflow-x-auto p-4 sm:p-6">
+              <Table className="min-w-[760px]">
                 <TableCaption>List of all events in the system</TableCaption>
                 <TableHeader>
                   <TableRow>
@@ -246,10 +227,10 @@ const EventManagement = () => {
                           <TableCell>
                             <div className="flex flex-col">
                               <div className="flex items-center text-sm">
-                                <Calendar className="h-4 w-4 mr-1 text-gray-500" />
+                                <Calendar className="mr-1 h-4 w-4 text-[#7d877f] dark:text-[#9daa9f]" />
                                 {format(parseISO(event.start_time), 'MMM d, yyyy')}
                               </div>
-                              <div className="flex items-center text-sm text-gray-500">
+                              <div className="flex items-center text-sm text-[#7d877f] dark:text-[#9daa9f]">
                                 <Clock className="h-4 w-4 mr-1" />
                                 {format(parseISO(event.start_time), 'h:mm a')}
                               </div>
@@ -279,7 +260,7 @@ const EventManagement = () => {
                                         ? 'destructive' 
                                         : 'outline'
                                   }
-                                  className={event.ui_status === 'approved' ? "bg-green-600 hover:bg-green-700" : ""}
+                                  className={event.ui_status === 'approved' ? "bg-[#344b38] text-white hover:bg-[#26382d]" : ""}
                                 >
                                   {event.ui_status.charAt(0).toUpperCase() + event.ui_status.slice(1)}
                                 </Badge>
@@ -289,7 +270,7 @@ const EventManagement = () => {
                                     variant="outline" 
                                     size="sm"
                                     onClick={() => updateEventMutation.mutate({ id: event.id, ui_status: 'approved' })}
-                                    className="h-8 text-green-600 border-green-600 hover:bg-green-50"
+                                    className="h-8 border-[#8da18e] text-[#344b38] hover:bg-[#edf2e9] dark:border-[#66806c] dark:text-[#dce8dd] dark:hover:bg-[#26382d]"
                                   >
                                     <Check className="h-4 w-4 mr-1" /> Approve
                                   </Button>
@@ -297,7 +278,7 @@ const EventManagement = () => {
                                     variant="outline" 
                                     size="sm" 
                                     onClick={() => deleteEventMutation.mutate(event.id)}
-                                    className="h-8 text-red-600 border-red-600 hover:bg-red-50"
+                                    className="h-8 border-[#d9a28e] text-[#9b4d32] hover:bg-[#fbefe9] dark:border-[#9b614e] dark:text-[#f2c8b7] dark:hover:bg-[#392b25]"
                                   >
                                     <X className="h-4 w-4 mr-1" /> Delete
                                   </Button>
@@ -308,9 +289,9 @@ const EventManagement = () => {
                         </TableRow>
                         
                         {expandedEvents[event.id] && (
-                          <TableRow className="bg-gray-50 dark:bg-gray-800">
+                          <TableRow className="bg-[#f6f3ec] dark:bg-[#223128]">
                             <TableCell colSpan={5}>
-                              <div className="space-y-4 p-4">
+                              <div className="space-y-4 p-4 text-[#344239] dark:text-[#e0e8e1]">
                                 {event.image_url && (
                                   <div>
                                     <img 
@@ -322,7 +303,7 @@ const EventManagement = () => {
                                 )}
                                 <div>
                                   <div className="flex items-center mb-2">
-                                    <MapPin className="h-4 w-4 mr-1 text-gray-500" />
+                                    <MapPin className="mr-1 h-4 w-4 text-[#7d877f] dark:text-[#9daa9f]" />
                                     <span className="text-sm">{event.location}</span>
                                   </div>
                                   <h4 className="font-medium">Description:</h4>
@@ -358,7 +339,7 @@ const EventManagement = () => {
               <CardDescription>Events scheduled in the future</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+              <div className="flex flex-col items-center justify-center py-12 text-[#68736a] dark:text-[#b7c3ba]">
                 <AlertTriangle className="h-12 w-12 mb-2" />
                 <h3 className="text-lg font-medium">No upcoming events</h3>
                 <p>There are no upcoming events scheduled.</p>
@@ -374,7 +355,7 @@ const EventManagement = () => {
               <CardDescription>Events that have already taken place</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+              <div className="flex flex-col items-center justify-center py-12 text-[#68736a] dark:text-[#b7c3ba]">
                 <AlertTriangle className="h-12 w-12 mb-2" />
                 <h3 className="text-lg font-medium">No past events</h3>
                 <p>There are no past events in the system.</p>

@@ -86,11 +86,11 @@ const Recruitment = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-[#1d2c24] dark:text-[#f5f2e9]">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Recruitment</h1>
-          <p className="text-muted-foreground">Find open positions in campus clubs and organizations</p>
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Recruitment</h1>
+          <p className="mt-2 max-w-2xl text-[#68736a] dark:text-[#b7c3ba]">Find open positions in campus clubs and organizations</p>
         </div>
         {isCRP && (
           <Button 
@@ -112,7 +112,7 @@ const Recruitment = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <div className="w-full sm:w-[200px]">
+        <div className="w-full sm:w-[220px]">
           <Select value={clubFilter} onValueChange={setClubFilter}>
             <SelectTrigger>
               <Filter className="h-4 w-4 mr-2" />
@@ -129,37 +129,37 @@ const Recruitment = () => {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {filteredPositions.length > 0 ? (
           filteredPositions.map(position => (
-            <Card key={position.id} className="overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-cluby-50 to-blue-50 pb-4">
+            <Card key={position.id} className="overflow-hidden rounded-2xl border-[#e5dfd3] bg-white/80 shadow-sm transition-shadow hover:shadow-md dark:border-[#34443a] dark:bg-[#1c2921]">
+              <CardHeader className="border-b border-[#e9e4d9] bg-[#f0ede4] pb-4 dark:border-[#34443a] dark:bg-[#223128]">
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle>{position.title}</CardTitle>
-                    <CardDescription className="text-foreground/70 font-medium mt-1">
+                    <CardDescription className="mt-1 font-medium text-[#68736a] dark:text-[#b7c3ba]">
                       {position.club}
                     </CardDescription>
                   </div>
-                  <Badge variant="outline" className="bg-white/80">
+                  <Badge variant="outline" className="border-[#cbd6cb] bg-[#f8faf6] text-[#344b38] dark:border-[#526256] dark:bg-[#1c2921] dark:text-[#dce8dd]">
                     {position.applicants} Applicants
                   </Badge>
                 </div>
               </CardHeader>
               <CardContent className="pt-4">
-                <p className="mb-4">{position.description}</p>
+                <p className="mb-4 text-[#344239] dark:text-[#e0e8e1]">{position.description}</p>
                 <div className="space-y-3">
                   <div>
                     <h4 className="text-sm font-semibold">Requirements:</h4>
-                    <p className="text-sm text-muted-foreground">{position.requirements}</p>
+                    <p className="text-sm text-[#68736a] dark:text-[#b7c3ba]">{position.requirements}</p>
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold">Deadline:</h4>
-                    <p className="text-sm text-muted-foreground">{position.deadline}</p>
+                    <p className="text-sm text-[#68736a] dark:text-[#b7c3ba]">{position.deadline}</p>
                   </div>
                   <div className="flex flex-wrap gap-2 pt-2">
                     {position.tags.map(tag => (
-                      <Badge key={tag} variant="secondary" className="text-xs">
+                      <Badge key={tag} variant="secondary" className="bg-[#e5ecdf] text-[#344b38] dark:bg-[#34443a] dark:text-[#dce8dd]">
                         {tag}
                       </Badge>
                     ))}
@@ -174,7 +174,7 @@ const Recruitment = () => {
             </Card>
           ))
         ) : (
-          <div className="col-span-2 py-10 text-center text-muted-foreground">
+          <div className="col-span-full rounded-2xl border border-dashed border-[#d8d2c6] py-12 text-center text-[#68736a] dark:border-[#48564d] dark:text-[#b7c3ba]">
             No positions found matching your criteria. Try adjusting your search or filters.
           </div>
         )}

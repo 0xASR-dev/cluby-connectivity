@@ -139,8 +139,8 @@ const ClubDetail = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="relative h-48 md:h-64 bg-gradient-to-r from-cluby-100 to-blue-100 rounded-lg overflow-hidden">
+    <div className="space-y-7 text-[#1d2c24] dark:text-[#f5f2e9]">
+      <div className="relative h-48 overflow-hidden rounded-2xl bg-gradient-to-r from-[#e8dfc9] to-[#d9e5dc] md:h-64 dark:from-[#26382d] dark:to-[#34443a]">
         {club.coverImage && (
           <img 
             src={club.coverImage} 
@@ -151,16 +151,16 @@ const ClubDetail = () => {
         <div className="absolute inset-0 bg-black/20"></div>
       </div>
       
-      <div className="flex flex-col md:flex-row gap-6">
-        <div className="md:w-2/3 space-y-6">
+      <div className="flex flex-col gap-6 md:flex-row">
+        <div className="space-y-6 md:w-2/3">
           <div className="flex flex-col md:flex-row md:items-center gap-4">
             <img 
               src={club.logo} 
               alt={club.name} 
-              className="rounded-full border-4 border-white h-20 w-20 object-cover bg-white shadow-sm -mt-10 md:mt-0"
+              className="-mt-10 h-20 w-20 rounded-full border-4 border-[#f6f3ec] bg-[#f6f3ec] object-cover shadow-sm md:mt-0 dark:border-[#1c2921] dark:bg-[#1c2921]"
             />
             <div className="flex-1">
-              <h1 className="text-3xl font-bold">{club.name}</h1>
+              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{club.name}</h1>
               <div className="flex flex-wrap gap-1 mt-2">
                 {club.tags.map((tag, index) => (
                   <Badge key={index} variant="secondary">
@@ -169,8 +169,8 @@ const ClubDetail = () => {
                 ))}
               </div>
             </div>
-            <div className="flex gap-2 mt-4 md:mt-0">
-              <Button onClick={handleFollow} variant="outline">
+            <div className="mt-4 flex flex-wrap gap-2 md:mt-0">
+              <Button onClick={handleFollow} variant="outline" className="border-[#d8d2c6] dark:border-[#48564d]">
                 {isFollowing ? (
                   <>
                     <Bell className="h-4 w-4 mr-2 fill-cluby-500" />
@@ -183,14 +183,14 @@ const ClubDetail = () => {
                   </>
                 )}
               </Button>
-              <Button onClick={handleJoin}>
+              <Button onClick={handleJoin} className="bg-[#1d2c24] text-white hover:bg-[#344b38] dark:bg-[#d9e5dc] dark:text-[#1d2c24] dark:hover:bg-white">
                 {isMember ? "Leave Club" : "Join Club"}
               </Button>
             </div>
           </div>
           
           <Tabs defaultValue="about">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid h-auto w-full grid-cols-2 gap-1 rounded-xl bg-[#ebe7dd] p-1 sm:grid-cols-4 dark:bg-[#223128]">
               <TabsTrigger value="about">About</TabsTrigger>
               <TabsTrigger value="events">Events</TabsTrigger>
               <TabsTrigger value="posts">Posts</TabsTrigger>
@@ -198,33 +198,33 @@ const ClubDetail = () => {
             </TabsList>
             
             <TabsContent value="about" className="space-y-4 mt-4">
-              <Card>
-                <CardHeader>
+              <Card className="rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+                <CardHeader className="border-b border-[#e9e4d9] dark:border-[#34443a]">
                   <CardTitle>About {club.name}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="whitespace-pre-line text-gray-700">{club.longDescription}</p>
+                  <p className="whitespace-pre-line leading-7 text-[#68736a] dark:text-[#b7c3ba]">{club.longDescription}</p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-500">Founded</p>
+                      <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">Founded</p>
                       <p>{club.founded}</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-500">Members</p>
+                      <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">Members</p>
                       <p>{club.members} active members</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-500">Meeting Time</p>
+                      <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">Meeting Time</p>
                       <p>{club.meetingTime}</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-500">Location</p>
+                      <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">Location</p>
                       <p>{club.location}</p>
                     </div>
                   </div>
                   
-                  <div className="pt-4 border-t">
+                  <div className="border-t border-[#e9e4d9] pt-4 dark:border-[#34443a]">
                     <h3 className="font-medium mb-3">Club Leadership</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       {club.leaders.map((leader) => (
@@ -235,14 +235,14 @@ const ClubDetail = () => {
                           </Avatar>
                           <div>
                             <p className="font-medium">{leader.name}</p>
-                            <p className="text-sm text-gray-500">{leader.role}</p>
+                            <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">{leader.role}</p>
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
                   
-                  <div className="pt-4 border-t">
+                  <div className="border-t border-[#e9e4d9] pt-4 dark:border-[#34443a]">
                     <h3 className="font-medium mb-3">Connect with {club.name}</h3>
                     <div className="flex gap-2">
                       {club.socialLinks.website && (
@@ -282,18 +282,18 @@ const ClubDetail = () => {
                 <CardContent className="space-y-4">
                   {club.upcomingEvents.map((event) => (
                     <Card key={event.id} className="overflow-hidden">
-                      <div className="bg-gradient-to-r from-cluby-50 to-blue-50 p-4 border-b">
+                      <div className="border-b border-[#e9e4d9] bg-[#f0ede4] p-4 dark:border-[#34443a] dark:bg-[#223128]">
                         <h3 className="font-semibold text-lg">{event.title}</h3>
                         <div className="flex flex-wrap gap-y-2 mt-2">
-                          <div className="flex items-center text-sm text-gray-600 mr-4">
+                          <div className="mr-4 flex items-center text-sm text-[#68736a] dark:text-[#b7c3ba]">
                             <Calendar className="h-4 w-4 mr-1" />
                             {event.date}
                           </div>
-                          <div className="flex items-center text-sm text-gray-600 mr-4">
+                          <div className="mr-4 flex items-center text-sm text-[#68736a] dark:text-[#b7c3ba]">
                             <Clock className="h-4 w-4 mr-1" />
                             {event.time}
                           </div>
-                          <div className="flex items-center text-sm text-gray-600">
+                          <div className="flex items-center text-sm text-[#68736a] dark:text-[#b7c3ba]">
                             <MapPin className="h-4 w-4 mr-1" />
                             {event.location}
                           </div>
@@ -301,8 +301,8 @@ const ClubDetail = () => {
                       </div>
                       <div className="p-4 flex justify-between items-center">
                         <div className="flex items-center">
-                          <Users className="h-4 w-4 mr-1 text-gray-500" />
-                          <span className="text-sm text-gray-600">{event.attendees} attending</span>
+                          <Users className="mr-1 h-4 w-4 text-[#68736a] dark:text-[#b7c3ba]" />
+                          <span className="text-sm text-[#68736a] dark:text-[#b7c3ba]">{event.attendees} attending</span>
                         </div>
                         <div className="flex gap-2">
                           <Button size="sm">Register</Button>
@@ -318,8 +318,8 @@ const ClubDetail = () => {
             </TabsContent>
             
             <TabsContent value="posts" className="space-y-4 mt-4">
-              <Card>
-                <CardHeader>
+              <Card className="rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+                <CardHeader className="border-b border-[#e9e4d9] dark:border-[#34443a]">
                   <CardTitle>Recent Posts</CardTitle>
                   <CardDescription>Updates and announcements from {club.name}</CardDescription>
                 </CardHeader>
@@ -334,14 +334,14 @@ const ClubDetail = () => {
                           </Avatar>
                           <div>
                             <p className="font-medium">{post.author}</p>
-                            <p className="text-xs text-gray-500">{post.date}</p>
+                            <p className="text-xs text-[#7d877f] dark:text-[#9daa9f]">{post.date}</p>
                           </div>
                         </div>
                         
                         <h3 className="font-semibold text-lg mb-2">{post.title}</h3>
-                        <p className="text-gray-700 mb-4">{post.content}</p>
+                        <p className="mb-4 leading-6 text-[#68736a] dark:text-[#b7c3ba]">{post.content}</p>
                         
-                        <div className="flex justify-between items-center pt-2 border-t">
+                        <div className="flex items-center justify-between border-t border-[#e9e4d9] pt-2 dark:border-[#34443a]">
                           <div className="flex gap-4">
                             <Button variant="ghost" size="sm" className="gap-1">
                               <Heart className="h-4 w-4" />
@@ -364,8 +364,8 @@ const ClubDetail = () => {
             </TabsContent>
             
             <TabsContent value="recruitment" className="space-y-4 mt-4">
-              <Card>
-                <CardHeader>
+              <Card className="rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+                <CardHeader className="border-b border-[#e9e4d9] dark:border-[#34443a]">
                   <CardTitle>Open Positions</CardTitle>
                   <CardDescription>Join the team at {club.name}</CardDescription>
                 </CardHeader>
@@ -375,14 +375,14 @@ const ClubDetail = () => {
                       <Card key={position.id}>
                         <CardContent className="p-4">
                           <h3 className="font-semibold text-lg">{position.title}</h3>
-                          <p className="text-gray-700 mt-1 mb-3">{position.description}</p>
+                          <p className="mb-3 mt-1 text-[#68736a] dark:text-[#b7c3ba]">{position.description}</p>
                           
                           <div className="flex justify-between items-center flex-wrap gap-y-2">
                             <div className="space-x-4">
-                              <Badge variant="outline" className="text-amber-700 bg-amber-50">
+                              <Badge variant="outline" className="border-[#dfd6c2] bg-[#f4efe3] text-[#76573c] dark:border-[#526256] dark:bg-[#26382d] dark:text-[#e3c9a8]">
                                 Deadline: {position.deadline}
                               </Badge>
-                              <span className="text-sm text-gray-500">
+                              <span className="text-sm text-[#7d877f] dark:text-[#9daa9f]">
                                 {position.applications} applications
                               </span>
                             </div>
@@ -392,8 +392,8 @@ const ClubDetail = () => {
                       </Card>
                     ))
                   ) : (
-                    <div className="text-center py-8">
-                      <p className="text-gray-500">No open positions at the moment</p>
+                    <div className="rounded-xl border border-dashed border-[#d8d2c6] py-8 text-center dark:border-[#48564d]">
+                      <p className="text-[#68736a] dark:text-[#b7c3ba]">No open positions at the moment</p>
                     </div>
                   )}
                 </CardContent>
@@ -402,42 +402,42 @@ const ClubDetail = () => {
           </Tabs>
         </div>
         
-        <div className="md:w-1/3 space-y-6">
-          <Card>
-            <CardHeader>
+        <div className="space-y-5 md:w-1/3">
+          <Card className="rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+            <CardHeader className="border-b border-[#e9e4d9] dark:border-[#34443a]">
               <CardTitle className="text-lg">Club Stats</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <p className="text-2xl font-bold">{club.members}</p>
-                  <p className="text-sm text-gray-500">Members</p>
+                  <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">Members</p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold">{club.events}</p>
-                  <p className="text-sm text-gray-500">Events</p>
+                  <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">Events</p>
                 </div>
                 <div>
                   <p className="text-2xl font-bold">{club.posts}</p>
-                  <p className="text-sm text-gray-500">Posts</p>
+                  <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">Posts</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card>
-            <CardHeader>
+          <Card className="rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+            <CardHeader className="border-b border-[#e9e4d9] dark:border-[#34443a]">
               <CardTitle className="text-lg">Upcoming Events</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {club.upcomingEvents.slice(0, 2).map((event) => (
-                <div key={event.id} className="border-b pb-3 last:border-0 last:pb-0">
+                <div key={event.id} className="border-b border-[#e9e4d9] pb-3 last:border-0 last:pb-0 dark:border-[#34443a]">
                   <h4 className="font-medium">{event.title}</h4>
-                  <div className="flex items-center text-sm text-gray-600 mt-1">
+                  <div className="mt-1 flex items-center text-sm text-[#68736a] dark:text-[#b7c3ba]">
                     <Calendar className="h-4 w-4 mr-1" />
                     {event.date}
                   </div>
-                  <div className="flex items-center text-sm text-gray-600 mt-1">
+                  <div className="mt-1 flex items-center text-sm text-[#68736a] dark:text-[#b7c3ba]">
                     <MapPin className="h-4 w-4 mr-1" />
                     {event.location}
                   </div>
@@ -446,8 +446,8 @@ const ClubDetail = () => {
             </CardContent>
           </Card>
           
-          <Card>
-            <CardHeader>
+          <Card className="rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+            <CardHeader className="border-b border-[#e9e4d9] dark:border-[#34443a]">
               <CardTitle className="text-lg">Similar Clubs</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -458,7 +458,7 @@ const ClubDetail = () => {
                 </Avatar>
                 <div className="flex-1">
                   <p className="font-medium">AI Research Club</p>
-                  <p className="text-sm text-gray-500">86 members</p>
+                  <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">86 members</p>
                 </div>
                 <Button variant="outline" size="sm">View</Button>
               </div>
@@ -470,7 +470,7 @@ const ClubDetail = () => {
                 </Avatar>
                 <div className="flex-1">
                   <p className="font-medium">Game Development Society</p>
-                  <p className="text-sm text-gray-500">64 members</p>
+                  <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">64 members</p>
                 </div>
                 <Button variant="outline" size="sm">View</Button>
               </div>
@@ -482,7 +482,7 @@ const ClubDetail = () => {
                 </Avatar>
                 <div className="flex-1">
                   <p className="font-medium">Competitive Programming</p>
-                  <p className="text-sm text-gray-500">92 members</p>
+                  <p className="text-sm text-[#7d877f] dark:text-[#9daa9f]">92 members</p>
                 </div>
                 <Button variant="outline" size="sm">View</Button>
               </div>

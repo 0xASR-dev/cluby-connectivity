@@ -26,18 +26,18 @@ const CreateRecruitment = () => {
   };
   
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-4xl space-y-8 text-[#1d2c24] dark:text-[#f5f2e9]">
       <div>
-        <h1 className="text-3xl font-bold">Create Recruitment Position</h1>
-        <p className="text-muted-foreground">Post a new position to recruit members for your club</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Create Recruitment Position</h1>
+        <p className="mt-2 text-[#68736a] dark:text-[#b7c3ba]">Post a new position to recruit members for your club</p>
       </div>
       
-      <Card>
+      <Card className="overflow-hidden rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
         <form onSubmit={handleSubmit}>
-          <CardHeader>
+          <CardHeader className="border-b border-[#e9e4d9] bg-[#f0ede4] dark:border-[#34443a] dark:bg-[#223128]">
             <CardTitle>Position Details</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-5 p-5 sm:p-7">
             <div className="space-y-2">
               <Label htmlFor="position-title">Position Title *</Label>
               <Input id="position-title" placeholder="e.g. Web Developer, Event Coordinator" required />
@@ -123,7 +123,7 @@ const CreateRecruitment = () => {
             </div>
           </CardContent>
           
-          <CardFooter className="flex justify-between">
+          <CardFooter className="justify-between border-t border-[#e9e4d9] px-5 pt-5 dark:border-[#34443a] sm:px-7">
             <Button type="button" variant="outline" onClick={() => navigate(-1)}>
               Cancel
             </Button>

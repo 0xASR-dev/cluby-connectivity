@@ -59,12 +59,12 @@ const NotFound = () => {
   }, [location.pathname, user]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+    <div className="flex min-h-screen items-center justify-center bg-[#f6f3ec] px-4 py-12 text-[#1d2c24] dark:bg-[#111a16] dark:text-[#f5f2e9]">
+      <div className="w-full max-w-xl space-y-7 rounded-[1.75rem] border border-[#e5dfd3] bg-white/85 p-8 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921] sm:p-12">
         <div className="text-center">
-          <h1 className="text-9xl font-extrabold text-cluby-500 tracking-widest">404</h1>
-          <h2 className="text-3xl font-bold text-gray-900 mt-4">{errorContext.title}</h2>
-          <p className="text-gray-600 mt-2">{errorContext.description}</p>
+          <h1 className="text-8xl font-semibold tracking-[-0.08em] text-[#344b38] dark:text-[#b7cbb7] sm:text-9xl">404</h1>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight">{errorContext.title}</h2>
+          <p className="mt-3 text-[#68736a] dark:text-[#b7c3ba]">{errorContext.description}</p>
         </div>
         
         <div className="flex flex-col space-y-3">

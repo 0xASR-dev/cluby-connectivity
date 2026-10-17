@@ -94,7 +94,7 @@ const CreatePostDialog: React.FC<CreatePostDialogProps> = ({ open, onOpenChange,
   
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="border-[#e5dfd3] bg-[#fbfaf6] dark:border-[#34443a] dark:bg-[#1c2921] sm:max-w-[600px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Create Post</DialogTitle>
@@ -103,9 +103,9 @@ const CreatePostDialog: React.FC<CreatePostDialogProps> = ({ open, onOpenChange,
             </DialogDescription>
           </DialogHeader>
           
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="club" className="text-right">
+          <div className="grid gap-5 py-5">
+            <div className="grid grid-cols-1 items-start gap-2 sm:grid-cols-4 sm:items-center sm:gap-4">
+              <Label htmlFor="club" className="sm:text-right">
                 Club
               </Label>
               <Select 
@@ -113,7 +113,7 @@ const CreatePostDialog: React.FC<CreatePostDialogProps> = ({ open, onOpenChange,
                 onValueChange={setClubId}
                 disabled={isLoadingClubs}
               >
-                <SelectTrigger className="col-span-3">
+                <SelectTrigger className="w-full border-[#d8d2c6] bg-white sm:col-span-3 dark:border-[#48564d] dark:bg-[#111a16]">
                   <SelectValue placeholder="Select a club" />
                 </SelectTrigger>
                 <SelectContent>
@@ -136,15 +136,15 @@ const CreatePostDialog: React.FC<CreatePostDialogProps> = ({ open, onOpenChange,
               </Select>
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="type" className="text-right">
+            <div className="grid grid-cols-1 items-start gap-2 sm:grid-cols-4 sm:items-center sm:gap-4">
+              <Label htmlFor="type" className="sm:text-right">
                 Post Type
               </Label>
               <Select 
                 value={postType} 
                 onValueChange={setPostType}
               >
-                <SelectTrigger className="col-span-3">
+                <SelectTrigger className="w-full border-[#d8d2c6] bg-white sm:col-span-3 dark:border-[#48564d] dark:bg-[#111a16]">
                   <SelectValue placeholder="Post type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -155,28 +155,28 @@ const CreatePostDialog: React.FC<CreatePostDialogProps> = ({ open, onOpenChange,
               </Select>
             </div>
             
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="title" className="text-right">
+            <div className="grid grid-cols-1 items-start gap-2 sm:grid-cols-4 sm:items-center sm:gap-4">
+              <Label htmlFor="title" className="sm:text-right">
                 Title
               </Label>
               <Input
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="col-span-3"
+                className="w-full border-[#d8d2c6] bg-white sm:col-span-3 dark:border-[#48564d] dark:bg-[#111a16]"
                 required
               />
             </div>
             
-            <div className="grid grid-cols-4 items-start gap-4">
-              <Label htmlFor="content" className="text-right pt-2">
+            <div className="grid grid-cols-1 items-start gap-2 sm:grid-cols-4 sm:gap-4">
+              <Label htmlFor="content" className="sm:pt-2 sm:text-right">
                 Content
               </Label>
               <Textarea
                 id="content"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="col-span-3"
+                className="w-full border-[#d8d2c6] bg-white sm:col-span-3 dark:border-[#48564d] dark:bg-[#111a16]"
                 rows={6}
                 required
               />

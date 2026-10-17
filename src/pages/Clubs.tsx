@@ -109,45 +109,45 @@ const Clubs = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-[#1d2c24] dark:text-[#f5f2e9]">
       <div>
-        <h1 className="text-3xl font-bold">Clubs</h1>
-        <p className="text-muted-foreground">Discover and connect with campus clubs</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Clubs</h1>
+        <p className="mt-2 text-[#68736a] dark:text-[#b7c3ba]">Discover and connect with campus clubs</p>
       </div>
       
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col gap-3 rounded-2xl border border-[#e5dfd3] bg-white/70 p-3 sm:flex-row dark:border-[#34443a] dark:bg-[#1c2921]">
         <div className="relative flex-1">
-          <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Search aria-hidden="true" className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#68736a] dark:text-[#b7c3ba]" />
           <Input
             type="search"
             placeholder="Search clubs..."
-            className="pl-8"
+            className="border-[#e5dfd3] bg-[#fbfaf6] pl-10 dark:border-[#48564d] dark:bg-[#111a16]"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <Button variant="outline" className="sm:w-auto w-full">
+        <Button variant="outline" className="w-full border-[#d8d2c6] bg-white hover:bg-[#f0ede4] sm:w-auto dark:border-[#48564d] dark:bg-[#1c2921] dark:hover:bg-[#26382d]">
           <Filter className="h-4 w-4 mr-2" /> Filter
         </Button>
       </div>
       
       <Tabs defaultValue="all" onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid h-auto w-full grid-cols-2 gap-1 rounded-xl bg-[#ebe7dd] p-1 sm:grid-cols-4 dark:bg-[#223128]">
           <TabsTrigger value="all">All Clubs</TabsTrigger>
           <TabsTrigger value="following">Following</TabsTrigger>
           <TabsTrigger value="member">Member</TabsTrigger>
           <TabsTrigger value="featured">Featured</TabsTrigger>
         </TabsList>
         
-        <TabsContent value={activeTab} className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <TabsContent value={activeTab} className="mt-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {filteredClubs.length > 0 ? (
               filteredClubs.map(club => (
                 <ClubCard key={club.id} club={club} />
               ))
             ) : (
-              <div className="col-span-full text-center py-10">
-                <p className="text-lg text-gray-500">No clubs found matching your criteria</p>
+              <div className="col-span-full rounded-2xl border border-dashed border-[#d8d2c6] py-12 text-center dark:border-[#48564d]">
+                <p className="text-lg text-[#68736a] dark:text-[#b7c3ba]">No clubs found matching your criteria</p>
               </div>
             )}
           </div>
@@ -159,12 +159,12 @@ const Clubs = () => {
 
 const ClubCard = ({ club }: { club: any }) => {
   return (
-    <Card className="overflow-hidden hover:shadow-md transition-shadow dark:border-border/50">
+    <Card className="overflow-hidden rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm transition-shadow hover:shadow-md dark:border-[#34443a] dark:bg-[#1c2921]">
       <CardHeader className="p-0">
-        <div className="bg-gradient-to-r from-cluby-100 to-blue-100 dark:from-cluby-900 dark:to-blue-900 h-24 relative">
+        <div className="relative h-24 bg-gradient-to-r from-[#e8dfc9] to-[#d9e5dc] dark:from-[#26382d] dark:to-[#34443a]">
           {club.featured && (
             <div className="absolute top-2 right-2">
-              <Badge className="bg-yellow-500 dark:bg-yellow-600">
+              <Badge className="bg-[#9b4d32] text-white">
                 <Star className="h-3 w-3 mr-1" /> Featured
               </Badge>
             </div>
@@ -174,14 +174,14 @@ const ClubCard = ({ club }: { club: any }) => {
           <img 
             src={club.logo || 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=300&h=300&fit=crop'} 
             alt={club.name} 
-            className="rounded-full border-4 border-background dark:border-background h-20 w-20 object-cover bg-background dark:bg-background"
+            className="h-20 w-20 rounded-full border-4 border-[#f6f3ec] bg-[#f6f3ec] object-cover dark:border-[#1c2921] dark:bg-[#1c2921]"
           />
         </div>
-        <div className="text-center mt-2">
-          <h3 className="font-semibold text-xl">{club.name}</h3>
+        <div className="mt-3 text-center">
+          <h3 className="text-xl font-semibold tracking-tight">{club.name}</h3>
           <div className="flex justify-center gap-1 mt-1 flex-wrap px-4">
             {club.tags.map((tag: string, index: number) => (
-              <Badge key={index} variant="secondary" className="text-xs dark:bg-secondary/30">
+              <Badge key={index} variant="secondary" className="bg-[#e5ecdf] text-xs text-[#344b38] dark:bg-[#34443a] dark:text-[#dce8dd]">
                 {tag}
               </Badge>
             ))}
@@ -189,7 +189,7 @@ const ClubCard = ({ club }: { club: any }) => {
         </div>
       </CardHeader>
       <CardContent className="p-4 pt-2">
-        <p className="text-sm text-muted-foreground line-clamp-3">{club.description}</p>
+        <p className="line-clamp-3 text-sm leading-6 text-[#68736a] dark:text-[#b7c3ba]">{club.description}</p>
         
         <div className="flex justify-between mt-4 text-sm text-muted-foreground">
           <div className="flex items-center">
@@ -206,13 +206,13 @@ const ClubCard = ({ club }: { club: any }) => {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="p-4 pt-0 flex gap-2">
+      <CardFooter className="gap-2 p-4 pt-0">
         <Link to={`/clubs/${club.id}`} className="flex-1">
           <Button variant="default" className="w-full">View Club</Button>
         </Link>
         
-        <Button variant="outline" size="icon" className="dark:border-border/50">
-          <Heart className={`h-4 w-4 ${club.isFollowing ? 'fill-red-500 text-red-500 dark:fill-red-400 dark:text-red-400' : ''}`} />
+        <Button variant="outline" size="icon" aria-label={club.isFollowing ? `Unfollow ${club.name}` : `Follow ${club.name}`} className="border-[#d8d2c6] dark:border-[#48564d]">
+          <Heart aria-hidden="true" className={`h-4 w-4 ${club.isFollowing ? 'fill-[#c96343] text-[#c96343]' : ''}`} />
         </Button>
       </CardFooter>
     </Card>

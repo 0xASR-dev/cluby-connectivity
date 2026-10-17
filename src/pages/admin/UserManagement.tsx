@@ -1,7 +1,5 @@
-
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
 import { 
   Card, 
   CardContent, 
@@ -76,17 +74,7 @@ const UserManagement = () => {
   const { data: students, isLoading: studentsLoading } = useQuery({
     queryKey: ['admin-students'],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select(`
-          id,
-          full_name,
-          department,
-          year,
-          created_at,
-          username
-        `)
-        .order('created_at', { ascending: false });
+      const { data, error } = await fetch('/api/users');
         
       if (error) throw error;
       
@@ -107,14 +95,7 @@ const UserManagement = () => {
     queryKey: ['admin-club-reps'],
     queryFn: async () => {
       // Fix the SQL query by joining the profiles table to get the representative's name
-      const { data, error } = await supabase
-        .from('clubs')
-        .select(`
-          id, 
-          name,
-          representative_id
-        `)
-        .order('created_at', { ascending: false });
+      const { data, error } = await fetch('/api/clubs');
         
       if (error) throw error;
       
@@ -133,9 +114,11 @@ const UserManagement = () => {
   // Ban user mutation (simulated)
   const banUserMutation = useMutation({
     mutationFn: async (userId: string) => {
-      // This would typically call a Supabase Function or API to ban the user
-      // For now, just return the user ID
-      return userId;
+      const response = await fetch(`/api/users/${userId}/ban`, {
+        method: 'POST'
+      });
+      if (!response.ok) throw new Error('Failed to ban user');
+      return response.json();
     },
     onSuccess: (userId) => {
       toast({
@@ -155,9 +138,11 @@ const UserManagement = () => {
   // Delete user mutation (simulated)
   const deleteUserMutation = useMutation({
     mutationFn: async (userId: string) => {
-      // This would typically call a Supabase Function or API to delete the user
-      // For now, just return the user ID
-      return userId;
+      const response = await fetch(`/api/users/${userId}`, {
+        method: 'DELETE'
+      });
+      if (!response.ok) throw new Error('Failed to delete user');
+      return response.json();
     },
     onSuccess: (userId) => {
       toast({
@@ -177,7 +162,7 @@ const UserManagement = () => {
   const renderStudentsTable = () => {
     if (studentsLoading) {
       return (
-        <div className="flex items-center justify-center h-40">
+        <div className="flex h-40 items-center justify-center text-[#344b38] dark:text-[#dce8dd]">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
       );
@@ -185,7 +170,7 @@ const UserManagement = () => {
 
     if (!students || students.length === 0) {
       return (
-        <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+        <div className="flex flex-col items-center justify-center py-12 text-[#68736a] dark:text-[#b7c3ba]">
           <AlertTriangle className="h-12 w-12 mb-2" />
           <h3 className="text-lg font-medium">No students found</h3>
           <p>There are no student accounts registered on the platform.</p>
@@ -194,7 +179,7 @@ const UserManagement = () => {
     }
 
     return (
-      <Table>
+      <Table className="min-w-[700px]">
         <TableCaption>List of all student accounts</TableCaption>
         <TableHeader>
           <TableRow>
@@ -293,7 +278,7 @@ const UserManagement = () => {
     }
 
     return (
-      <Table>
+      <Table className="min-w-[700px]">
         <TableCaption>List of all club representative accounts</TableCaption>
         <TableHeader>
           <TableRow>
@@ -316,7 +301,7 @@ const UserManagement = () => {
               </TableCell>
               <TableCell>{rep.id}</TableCell>
               <TableCell>
-                <Badge variant="outline" className="bg-green-50 text-green-600 border-green-200">
+                <Badge variant="outline" className="border-[#cbd6cb] bg-[#e5ecdf] text-[#344b38] dark:border-[#48564d] dark:bg-[#26382d] dark:text-[#dce8dd]">
                   Active
                 </Badge>
               </TableCell>
@@ -373,28 +358,28 @@ const UserManagement = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-[#1d2c24] dark:text-[#f5f2e9]">
       <div>
-        <h1 className="text-3xl font-bold">User Management</h1>
-        <p className="text-muted-foreground">Manage user accounts and permissions</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">User Management</h1>
+        <p className="mt-2 text-[#68736a] dark:text-[#b7c3ba]">Manage user accounts and permissions</p>
       </div>
       
-      <Card>
-        <CardHeader>
+      <Card className="overflow-hidden rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+        <CardHeader className="border-b border-[#e9e4d9] dark:border-[#34443a]">
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>User Accounts</CardTitle>
               <CardDescription>View and manage all user accounts on the platform</CardDescription>
             </div>
-            <Button>
+            <Button className="bg-[#1d2c24] text-white hover:bg-[#344b38] dark:bg-[#d9e5dc] dark:text-[#1d2c24] dark:hover:bg-white">
               <User className="h-4 w-4 mr-2" />
               Add User
             </Button>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="overflow-x-auto p-4 sm:p-6">
           <Tabs defaultValue="students" value={activeTab} onValueChange={setActiveTab}>
-            <TabsList>
+            <TabsList className="h-auto flex-wrap rounded-xl bg-[#ebe7dd] p-1 dark:bg-[#223128]">
               <TabsTrigger value="students" onClick={() => setActiveTab('students')}>
                 <User className="h-4 w-4 mr-2" />
                 Students
@@ -418,7 +403,7 @@ const UserManagement = () => {
             </TabsContent>
             
             <TabsContent value="admins" className="mt-6">
-              <Table>
+              <Table className="min-w-[700px]">
                 <TableCaption>List of all admin accounts</TableCaption>
                 <TableHeader>
                   <TableRow>
@@ -441,7 +426,7 @@ const UserManagement = () => {
                     </TableCell>
                     <TableCell>admin@cluby.com</TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="bg-purple-50 text-purple-600 border-purple-200">
+                      <Badge variant="outline" className="border-[#cbd6cb] bg-[#e5ecdf] text-[#344b38] dark:border-[#48564d] dark:bg-[#26382d] dark:text-[#dce8dd]">
                         Super Admin
                       </Badge>
                     </TableCell>

@@ -1,14 +1,28 @@
-
 import { initMongoDB } from '../../lib/mongodb/init';
 import { sampleClubs, sampleEvents, samplePosts } from '../../lib/mongodb/seed/seedData';
 import Club from '../../lib/mongodb/models/Club';
 import Event from '../../lib/mongodb/models/Event';
 import Post from '../../lib/mongodb/models/Post';
+import { UserService } from '../../lib/services/user.service';
 
 export async function GET() {
   try {
     // Initialize MongoDB connection
     await initMongoDB();
+
+    // Create admin user first
+    const adminEmail = 'admin@example.com';
+    const adminPassword = 'Admin@1234';
+    
+    try {
+      await UserService.createUser(adminEmail, adminPassword, 'admin');
+      console.log('Admin user created successfully');
+    } catch (error) {
+      if (error.message !== 'Email already exists') {
+        throw error;
+      }
+      console.log('Admin user already exists');
+    }
 
     // Clear existing data
     await Promise.all([

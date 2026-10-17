@@ -20,7 +20,7 @@ const Profile = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-[50vh]">
+      <div className="flex h-[50vh] items-center justify-center text-[#344b38] dark:text-[#dce8dd]">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
@@ -45,10 +45,10 @@ const Profile = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-[#1d2c24] dark:text-[#f5f2e9]">
       <div>
-        <h1 className="text-3xl font-bold">Profile</h1>
-        <p className="text-muted-foreground">Manage your personal information and preferences</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Profile</h1>
+        <p className="mt-2 text-[#68736a] dark:text-[#b7c3ba]">Manage your personal information and preferences</p>
       </div>
       
       {renderProfile()}

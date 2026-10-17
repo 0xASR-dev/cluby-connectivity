@@ -26,28 +26,28 @@ const AdminUsers = () => {
   const getRoleBadge = (role: string) => {
     switch (role) {
       case 'admin':
-        return <Badge className="bg-red-100 text-red-800 border-red-200">Admin</Badge>;
+        return <Badge className="border-[#e8c5b9] bg-[#fbefe9] text-[#763d2d] dark:border-[#714f40] dark:bg-[#392b25] dark:text-[#f2c8b7]">Admin</Badge>;
       case 'club_rep':
-        return <Badge className="bg-blue-100 text-blue-800 border-blue-200">Club Rep</Badge>;
+        return <Badge className="border-[#cbd6cb] bg-[#e5ecdf] text-[#344b38] dark:border-[#48564d] dark:bg-[#26382d] dark:text-[#dce8dd]">Club Rep</Badge>;
       default:
-        return <Badge className="bg-green-100 text-green-800 border-green-200">Student</Badge>;
+        return <Badge className="border-[#cbd6cb] bg-[#e5ecdf] text-[#344b38] dark:border-[#48564d] dark:bg-[#26382d] dark:text-[#dce8dd]">Student</Badge>;
     }
   };
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 text-[#1d2c24] dark:text-[#f5f2e9]">
       <div>
-        <h1 className="text-3xl font-bold">User Management</h1>
-        <p className="text-muted-foreground">Manage all users on the platform</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">User Management</h1>
+        <p className="mt-2 text-[#68736a] dark:text-[#b7c3ba]">Manage all users on the platform</p>
       </div>
       
-      <div className="flex justify-between items-center">
-        <div className="relative w-64">
-          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+      <div className="flex flex-col items-stretch justify-between gap-3 rounded-2xl border border-[#e5dfd3] bg-white/70 p-3 sm:flex-row sm:items-center dark:border-[#34443a] dark:bg-[#1c2921]">
+        <div className="relative w-full sm:max-w-64">
+          <Search aria-hidden="true" className="absolute left-3 top-1/2 -translate-y-1/2 text-[#68736a] dark:text-[#b7c3ba]" size={18} />
           <Input 
             type="search" 
             placeholder="Search users..." 
-            className="pl-8"
+            className="border-[#e5dfd3] bg-[#fbfaf6] pl-10 dark:border-[#48564d] dark:bg-[#111a16]"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -59,11 +59,11 @@ const AdminUsers = () => {
         </Button>
       </div>
       
-      <Card>
-        <CardHeader>
+      <Card className="overflow-hidden rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+        <CardHeader className="border-b border-[#e9e4d9] dark:border-[#34443a]">
           <CardTitle>Users</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="overflow-x-auto p-4 sm:p-6">
           <Table>
             <TableHeader>
               <TableRow>
@@ -82,8 +82,8 @@ const AdminUsers = () => {
                   <TableCell>{getRoleBadge(user.role)}</TableCell>
                   <TableCell>
                     {user.status === 'active' ? 
-                      <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">Active</Badge> : 
-                      <Badge variant="outline" className="bg-gray-50 text-gray-700 border-gray-200">Inactive</Badge>
+                      <Badge variant="outline" className="border-[#cbd6cb] bg-[#e5ecdf] text-[#344b38] dark:border-[#48564d] dark:bg-[#26382d] dark:text-[#dce8dd]">Active</Badge> :
+                      <Badge variant="outline" className="border-[#d8d2c6] bg-[#f0ede4] text-[#68736a] dark:border-[#48564d] dark:bg-[#223128] dark:text-[#b7c3ba]">Inactive</Badge>
                     }
                   </TableCell>
                   <TableCell className="text-right">
@@ -100,7 +100,7 @@ const AdminUsers = () => {
                           <ShieldAlert className="h-4 w-4" />
                         </Button>
                       )}
-                      <Button variant="ghost" size="icon" className="text-red-500">
+                      <Button variant="ghost" size="icon" aria-label={`Delete ${user.name}`} className="text-[#9b4d32] hover:bg-[#fbefe9] hover:text-[#763d2d] dark:text-[#f2c8b7] dark:hover:bg-[#392b25]">
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>

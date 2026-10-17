@@ -61,12 +61,12 @@ const ClubForm = ({ isEditing = false, clubData }: ClubFormProps) => {
   };
   
   return (
-    <Card className="max-w-2xl mx-auto">
-      <CardHeader>
+    <Card className="mx-auto max-w-2xl overflow-hidden rounded-2xl border-[#e5dfd3] bg-white/85 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921]">
+      <CardHeader className="border-b border-[#e9e4d9] bg-[#f0ede4] dark:border-[#34443a] dark:bg-[#223128]">
         <CardTitle>{isEditing ? 'Edit Club' : 'Register a New Club'}</CardTitle>
       </CardHeader>
       <form onSubmit={handleSubmit}>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-5 p-5 sm:p-7">
           <div className="space-y-2">
             <Label htmlFor="club-name">Club Name *</Label>
             <Input id="club-name" placeholder="e.g. Programming Club" defaultValue={defaultData.name} required />
@@ -143,8 +143,8 @@ const ClubForm = ({ isEditing = false, clubData }: ClubFormProps) => {
             </div>
           </div>
           
-          <div className="rounded-md bg-blue-50 p-4">
-            <p className="text-sm text-blue-700">
+          <div className="rounded-xl border border-[#cbd6cb] bg-[#edf2e9] p-4 dark:border-[#48564d] dark:bg-[#26382d]">
+            <p className="text-sm text-[#344b38] dark:text-[#dce8dd]">
               {isEditing 
                 ? "Your changes will be visible to all users immediately after saving." 
                 : "Your club registration will be reviewed by an administrator before being published."}
@@ -152,7 +152,7 @@ const ClubForm = ({ isEditing = false, clubData }: ClubFormProps) => {
           </div>
         </CardContent>
         
-        <CardFooter className="flex justify-between">
+        <CardFooter className="justify-between border-t border-[#e9e4d9] px-5 pt-5 dark:border-[#34443a] sm:px-7">
           <Button type="button" variant="outline" onClick={() => navigate(-1)}>
             Cancel
           </Button>

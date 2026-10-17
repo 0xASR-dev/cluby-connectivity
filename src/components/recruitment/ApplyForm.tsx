@@ -67,7 +67,7 @@ const ApplyForm = ({ position }: { position: any }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 rounded-2xl border border-[#e5dfd3] bg-white/80 p-5 shadow-sm dark:border-[#34443a] dark:bg-[#1c2921] sm:p-7">
         <FormField
           control={form.control}
           name="coverLetter"
@@ -106,12 +106,14 @@ const ApplyForm = ({ position }: { position: any }) => {
           )}
         />
 
-        <div className="flex justify-end gap-4">
+        <div className="flex flex-col-reverse justify-end gap-3 border-t border-[#e9e4d9] pt-5 dark:border-[#34443a] sm:flex-row">
           <Button 
             type="button" 
             variant="outline" 
+            className="border-[#d8d2c6] dark:border-[#48564d]"
             onClick={() => navigate(-1)}
             disabled={mutation.isPending}
+            className="bg-[#1d2c24] text-white hover:bg-[#344b38] dark:bg-[#d9e5dc] dark:text-[#1d2c24] dark:hover:bg-white"
           >
             Cancel
           </Button>

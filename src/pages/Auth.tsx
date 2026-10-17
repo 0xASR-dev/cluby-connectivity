@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -19,10 +18,8 @@ const Auth = () => {
     const checkAuth = async () => {
       try {
         if (!isLoading) {
-          console.log("Auth status determined, user:", user?.email);
           if (user) {
-            console.log("User is authenticated, redirecting to dashboard");
-            navigate('/dashboard');
+            navigate('/app/dashboard');
           }
           setPageLoading(false);
         }

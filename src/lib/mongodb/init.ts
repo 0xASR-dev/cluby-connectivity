@@ -1,7 +1,19 @@
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-import dbConnect from './db';
-import mongoose from 'mongoose';
-import { DB_CONFIG } from '../env';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/cluby';
+
+async function initMongoDB() {
+  try {
+    await mongoose.connect(MONGODB_URI);
+    console.log('MongoDB connected successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
+  }
+}
+
+module.exports = { initMongoDB };
 
 // Check if we're in a browser environment
 const isBrowser = typeof window !== 'undefined';
@@ -21,45 +33,6 @@ if (!isBrowser) {
 
 // Cache to prevent multiple initialization attempts
 let initialized = false;
-
-/**
- * Initialize the MongoDB connection and load all models
- * This should be called during API initialization to ensure 
- * database is ready before handling requests
- */
-export async function initMongoDB() {
-  // Skip if already initialized or in browser environment
-  if (initialized || isBrowser) {
-    return;
-  }
-  
-  const uri = DB_CONFIG.uri;
-  
-  if (!uri) {
-    console.error('MongoDB connection string is not configured. Set MONGODB_URI environment variable.');
-    return;
-  }
-  
-  try {
-    console.log('Attempting to connect to MongoDB...');
-    console.log(`Connection details: Username=${DB_CONFIG.username}, Cluster=${DB_CONFIG.cluster}, DB=${DB_CONFIG.dbName}`);
-    
-    // Connect to MongoDB
-    await dbConnect();
-    console.log('MongoDB initialized successfully');
-    
-    // Log connection details for debugging (but hide credentials)
-    const redactedUri = uri.replace(/:([^@]+)@/, ':****@');
-    console.log(`Connected to MongoDB at: ${redactedUri}`);
-    console.log(`MongoDB connection state: ${mongoose.connection.readyState}`);
-    
-    initialized = true;
-    return true;
-  } catch (error) {
-    console.error('Failed to initialize MongoDB:', error);
-    throw error;
-  }
-}
 
 /**
  * Check if MongoDB is currently connected
@@ -90,9 +63,6 @@ export async function closeMongoDB() {
     console.error('Error closing MongoDB connection:', error);
   }
 }
-
-// Export the database connection for use in API routes
-export { dbConnect };
 
 // Register cleanup handlers for graceful shutdown
 if (typeof process !== 'undefined') {
