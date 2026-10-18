@@ -4,10 +4,40 @@
 // Check if we're in a browser environment
 const isBrowser = typeof window !== 'undefined';
 
+<<<<<<< HEAD
 // Get environment variables from either Vite (browser) or process.env (Node.js)
 const getEnv = (key: string) => {
   if (isBrowser && typeof import.meta !== 'undefined' && import.meta.env) {
     return import.meta.env[key];
+=======
+// Safe way to access environment variables in both browser and server contexts
+const getEnv = (key: string, defaultValue: string = ''): string => {
+  if (isBrowser) {
+    return defaultValue;
+  }
+  // Use a try-catch to safely access process.env in server environments
+  try {
+    return (globalThis?.process?.env && globalThis.process.env[key]) || defaultValue;
+  } catch (e) {
+    console.warn(`Error accessing environment variable ${key}:`, e);
+    return defaultValue;
+  }
+};
+
+// MongoDB connection configuration
+export const DB_CONFIG = {
+  username: getEnv('MONGODB_USERNAME', 'avneesh-singh'),
+  password: isBrowser ? '' : getEnv('MONGODB_PASSWORD', '15q3RIL4Qwq3LKnf'),
+  cluster: getEnv('MONGODB_CLUSTER', 'cluby-cluster.a6odmyp.mongodb.net'),
+  dbName: getEnv('MONGODB_DBNAME', 'cluby-db'),
+  // Connection string format
+  get uri(): string {
+    if (isBrowser) {
+      return '';
+    }
+    
+    return `mongodb+srv://${this.username}:${this.password}@${this.cluster}/?retryWrites=true&w=majority&appName=cluby`;
+>>>>>>> 5c0145fb4b60299445eee33f2a48bfb2fa84bcc8
   }
   return process.env[key];
 };
@@ -24,10 +54,5 @@ export const DB_CONFIG = {
 
 // Function to safely get environment variables
 export function getEnvVariable(key: string, defaultValue: string = ''): string {
-  if (isBrowser) {
-    console.warn(`Attempting to access environment variable (${key}) in browser`);
-    return defaultValue;
-  }
-  
-  return process.env[key] || defaultValue;
+  return getEnv(key, defaultValue);
 }

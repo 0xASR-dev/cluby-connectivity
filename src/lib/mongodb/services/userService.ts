@@ -1,50 +1,104 @@
-// This file is meant to only be used in API routes, not in the browser.
-// However, since we're simulating a client-side authentication flow,
-// we'll leave this as a placeholder for now.
 
-export interface AuthResponse {
-  user: any;
-  session: {
-    access_token: string;
-    refresh_token?: string;
-    expires_at?: number;
-  } | null;
-  error?: Error;
+import dbConnect from '../db';
+import User from '../models/User';
+import Profile from '../models/Profile';
+import mongoose from 'mongoose';
+
+export interface CreateUserData {
+  email: string;
+  role: 'student' | 'clubRepresentative' | 'admin';
+  password: string;
+  name: string;
 }
 
-// Note: These functions are placeholders and would normally
-// make server-side API calls to handle authentication.
-// Do not use this directly in client-side code.
+export async function createUser(userData: CreateUserData) {
+  // Check if we're in a browser environment
+  if (typeof window !== 'undefined') {
+    console.error('User creation should only be performed server-side');
+    throw new Error('Cannot create user in browser environment');
+  }
 
-export async function signUp(email: string, password: string, userData: any): Promise<AuthResponse> {
-  console.warn('Attempted to call server-side function from client');
-  return {
-    user: null,
-    session: null,
-    error: new Error('This function is meant to be used in API routes only')
-  };
+  try {
+    await dbConnect();
+    
+    // Start a mongoose session for transaction
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+      // Create user
+      const user = await User.create([{
+        email: userData.email,
+        password: userData.password, // Note: Password should already be hashed
+        role: userData.role
+      }], { session });
+
+      // Create profile
+      await Profile.create([{
+        user_id: user[0]._id,
+        full_name: userData.name,
+        username: userData.email.split('@')[0]
+      }], { session });
+
+      // Commit transaction
+      await session.commitTransaction();
+      session.endSession();
+
+      return user[0];
+    } catch (error) {
+      // Rollback transaction on error
+      await session.abortTransaction();
+      session.endSession();
+      throw error;
+    }
+  } catch (error) {
+    console.error('Error creating user in MongoDB:', error);
+    throw error;
+  }
 }
 
-export async function signIn(email: string, password: string): Promise<AuthResponse> {
-  console.warn('Attempted to call server-side function from client');
-  return {
-    user: null,
-    session: null,
-    error: new Error('This function is meant to be used in API routes only')
-  };
+export async function getUserById(userId: string) {
+  try {
+    await dbConnect();
+    
+    const user = await User.findById(userId);
+    if (!user) {
+      return null;
+    }
+    
+    const profile = await Profile.findOne({ user_id: user._id });
+    
+    return {
+      id: user._id,
+      email: user.email,
+      role: user.role,
+      profile
+    };
+  } catch (error) {
+    console.error('Error fetching user by ID:', error);
+    throw error;
+  }
 }
 
-export async function getUserProfile(userId: string) {
-  console.warn('Attempted to call server-side function from client');
-  return null;
-}
-
-export async function verifyToken(token: string) {
-  console.warn('Attempted to call server-side function from client');
-  return { data: null, error: new Error('This function is meant to be used in API routes only') };
-}
-
-export async function signOut() {
-  console.warn('Attempted to call server-side function from client');
-  return { error: null };
+export async function getUserByEmail(email: string) {
+  try {
+    await dbConnect();
+    
+    const user = await User.findOne({ email });
+    if (!user) {
+      return null;
+    }
+    
+    const profile = await Profile.findOne({ user_id: user._id });
+    
+    return {
+      id: user._id,
+      email: user.email,
+      role: user.role,
+      profile
+    };
+  } catch (error) {
+    console.error('Error fetching user by email:', error);
+    throw error;
+  }
 }

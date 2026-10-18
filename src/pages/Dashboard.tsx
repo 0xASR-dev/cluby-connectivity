@@ -1,7 +1,11 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+<<<<<<< HEAD
 import { ArrowUpRight, Bell, CalendarDays, Users } from 'lucide-react';
+=======
+import { CalendarDays, Users, Bell } from 'lucide-react';
+>>>>>>> 5c0145fb4b60299445eee33f2a48bfb2fa84bcc8
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +24,7 @@ const Dashboard = () => {
         <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted-foreground">
           Welcome to Cluby, your platform for campus clubs and activities.
         </p>
+<<<<<<< HEAD
       </header>
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
@@ -27,6 +32,16 @@ const Dashboard = () => {
           <CardHeader className="space-y-1.5 pb-4">
             <CardTitle className="text-xl font-semibold tracking-tight text-card-foreground">Quick Actions</CardTitle>
             <CardDescription className="text-sm leading-relaxed text-muted-foreground">Common tasks you might want to do</CardDescription>
+=======
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        {/* Quick Actions Card */}
+        <Card className="col-span-1">
+          <CardHeader>
+            <CardTitle>Quick Actions</CardTitle>
+            <CardDescription>Common tasks you might want to do</CardDescription>
+>>>>>>> 5c0145fb4b60299445eee33f2a48bfb2fa84bcc8
           </CardHeader>
           <CardContent className="flex flex-col gap-2.5">
             <Button

@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 export interface IUser extends Document {
   _id: mongoose.Types.ObjectId;
   email: string;
+<<<<<<< HEAD
   password: string;
   role: 'admin' | 'student' | 'club_rep';
   fullName: string;
@@ -16,6 +17,12 @@ export interface IUser extends Document {
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
   hasRole(roles: string | string[]): boolean;
+=======
+  password: string; // This will be hashed
+  role: 'student' | 'clubRepresentative' | 'admin';
+  created_at: Date;
+  updated_at: Date;
+>>>>>>> 5c0145fb4b60299445eee33f2a48bfb2fa84bcc8
 }
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -96,6 +103,7 @@ const userSchema = new mongoose.Schema<IUser>({
   }
 });
 
+<<<<<<< HEAD
 // Hash password before saving
 userSchema.pre('save', async function(next) {
   // Only hash if password is modified or new
@@ -140,5 +148,23 @@ userSchema.index({ role: 1 });
 userSchema.index({ status: 1 });
 
 export const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', userSchema);
+=======
+// Safe model initialization that handles both browser and server environments
+let User: mongoose.Model<UserDocument>;
+
+// Only create/access model on server side
+if (typeof window === 'undefined') {
+  try {
+    // Try to get existing model
+    User = mongoose.model<UserDocument>('User');
+  } catch {
+    // Create new model if it doesn't exist
+    User = mongoose.model<UserDocument>('User', UserSchema);
+  }
+} else {
+  // In browser, provide a placeholder
+  User = {} as mongoose.Model<UserDocument>;
+}
+>>>>>>> 5c0145fb4b60299445eee33f2a48bfb2fa84bcc8
 
 export default User;
